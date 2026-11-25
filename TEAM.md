@@ -48,7 +48,7 @@ Sao chép mục dưới đây cho từng thành viên.
 
 - Chạy lại `src/lab13.py` trên máy thứ hai: ba phép thử A1 `ĐẠT`, output trùng `src/lab13_output.txt`; soát số CP1–CP2 trong `bang_chi_phi.md` với bảng đối chiếu.
 - Gắn 20 nhãn người 1 trong `bang_loi.md` (đồng thuận với người gắn nhãn 2: 17/20 = 85%).
-- Hoàn thiện `pilot_plan.yaml`: năm câu D1, năm câu D2, đánh đổi mde 6 điểm (power 0,64 nếu tác động thật 5 điểm), chia theo nhân viên 20 + 20, bốn luật dừng NẾU – TRONG – THÌ – KHÔNG THÌ, ngày quyết định 2027-01-15.
+- Hoàn thiện `pilot_plan.yaml`: năm câu D1, năm câu D2, đánh đổi mde 6 điểm (power 0,64 nếu tác động thật 5 điểm), chia theo nhân viên 20 + 20, năm luật dừng NẾU – TRONG – THÌ – KHÔNG THÌ (cập nhật theo slide bổ sung của coach), ngày quyết định 2027-01-15.
 
 ### Bằng chứng
 
