@@ -83,3 +83,30 @@ Sao chép mục dưới đây cho từng thành viên.
 - `report/team/2A202604028_NguyenNangThinh.md`: Báo cáo cá nhân.
 - Nhánh đóng góp: `feature/launch-dossier`.
 - Commit: 0d7f2c2ada99dd33bf71aeb91f76325536f2ac1f, e071f3832566014380f421e5121ce76c1e81aca1, 53634c75389ecd9772a75677c997ef3b9e71fc4d, 34ce6d990872f891d106d853d285ed8e82300d8a, 1daa437a572ea532d0eefd430dc76ca30895d03d, 70698b2f3fa8a78edf7fb778fc663b3d8b38ff3e.
+
+## Cao Minh Quang-2A202603906
+### Phần việc phụ trách
+
+- Cài đặt và kiểm tra môi trường Python (`src/.venv`) theo `src/README.md`.
+- Viết và chạy toàn bộ `src/lab13.py` cho các nhiệm vụ A (A1–A4), B (B1–B4), D1 (cỡ mẫu pilot) và hỗ trợ tính thử chỉ số D3, E1.
+
+### Đóng góp cụ thể
+
+- Hoàn thiện ba hàm A1 (`so_lan_chay_ky_vong`, `ti_le_thanh_cong`, `he_so_chi_phi_moi_viec_thanh_cong`) đạt 100% ba phép thử biết trước (`1,20 · 1,25 · 1,25`).
+- Viết hàm `mo_hinh` (A2) cộng chi phí token + tool trên mọi lần chạy và giờ xem lại/làm lại (`simulated`), chia cho số yêu cầu `thanh_cong`.
+- Cài đặt phần tách theo `loai` (A3), tỉ lệ `ok` theo `attempt`, và chi phí cố định 40 triệu đ/tháng (A4).
+- Cài đặt bảng độ nhạy 9 kịch bản đơn (B1), kịch bản cặp (B2), chi phí cả hệ thống theo giới hạn chạy lại 1/2/3 lần (B3), và kịch bản xem lại 100% (B4).
+- Cài đặt hàm `co_mau` và tính đủ 5 câu cỡ mẫu D1 cùng power ở mức chênh +5 điểm (`0,64`), tỉ lệ `mo_lai_trong_7_ngay` hiện tại và 3 chỉ số chạy thử E1.
+
+### Bằng chứng
+
+- Nhánh làm việc: `feat/quang011105-lab13-code` (commit `ff5b231`).
+- File code: `src/lab13.py`.
+- Kết quả chạy `python lab13.py`:
+  - `Ba phép thử đáp án biết trước: ĐẠT`
+  - A2: tổng chi phí `4.373.585 đ`, `978` việc thành công, chi phí mỗi việc thành công `4.472 đ` (`simulated`), gấp `16,3x` hoá đơn/yêu cầu (`274,7 đ`).
+  - A3: `noi_dia` `2.696 đ` (`0,22x`), `hang_nang` `8.221 đ` (`0,69x`), `quoc_te` `22.515 đ` (`1,88x`), `doi_tac` `10.215 đ` (`0,85x`) (`simulated`).
+  - A4: cộng cố định `4.599 đ` (`0,38x`) ở `45.000 yc/tháng` và `5.784 đ` (`0,48x`) ở `22.500 yc/tháng` (`simulated`).
+  - B1–B4: yếu tố nhạy nhất là làm lại (`+51,8%` khi gấp đôi); giới hạn 2 lần cho chi phí cả hệ thống thấp nhất (`6.901.220 đ`, `simulated`); xem lại 100% ở `15,3 phút/ca` là `12.415 đ` (`1,03x`, `simulated`).
+  - D1 & E1: `1.251 yc/nhóm` theo yêu cầu; `m >= 299` ở mức chênh 6 điểm với 20 nhân viên/nhóm (`DE = 6,96`); chỉ số chính chạy thử `82,83%`, bỏ qua gợi ý `27,12%`, mở lại 7 ngày `4,25%` (`3,97%` trong phạm vi).
+
