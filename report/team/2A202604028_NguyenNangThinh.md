@@ -45,7 +45,7 @@ Các kết quả nổi bật:
 - Tổng hợp 3 ca bất đồng gồm ca 16, 18 và 20.
 - Xây dựng bảng khắc phục gồm 5 ca đại diện cho 5 loại lỗi.
 
-Commit minh chứng: 0d7f2c2ada99dd33bf71aeb91f76325536f2ac1f, e071f3832566014380f421e5121ce76c1e81aca1, 53634c75389ecd9772a75677c997ef3b9e71fc4d, 34ce6d990872f891d106d853d285ed8e82300d8a.
+Commit minh chứng: 0d7f2c2ada99dd33bf71aeb91f76325536f2ac1f, e071f3832566014380f421e5121ce76c1e81aca1, 53634c75389ecd9772a75677c997ef3b9e71fc4d, 34ce6d990872f891d106d853d285ed8e82300d8a, 1daa437a572ea532d0eefd430dc76ca30895d03d, 70698b2f3fa8a78edf7fb778fc663b3d8b38ff3e.
 
 ## 5. Công cụ AI đã dùng
 
