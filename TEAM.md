@@ -110,3 +110,22 @@ Sao chép mục dưới đây cho từng thành viên.
   - B1–B4: yếu tố nhạy nhất là làm lại (`+51,8%` khi gấp đôi); giới hạn 2 lần cho chi phí cả hệ thống thấp nhất (`6.901.220 đ`, `simulated`); xem lại 100% ở `15,3 phút/ca` là `12.415 đ` (`1,03x`, `simulated`).
   - D1 & E1: `1.251 yc/nhóm` theo yêu cầu; `m >= 299` ở mức chênh 6 điểm với 20 nhân viên/nhóm (`DE = 6,96`); chỉ số chính chạy thử `82,83%`, bỏ qua gợi ý `27,12%`, mở lại 7 ngày `4,25%` (`3,97%` trong phạm vi).
 
+## TrinhNgocNinh-2A202603996
+
+### Phần việc phụ trách
+
+- Người kiểm số: kiểm độc lập các con số do người viết code tính ra, trước khi nhóm chép vào hồ sơ.
+- CP1: kiểm A1–A4; CP2: kiểm bảng độ nhạy B1–B4; CP4: kiểm D1 và các trường của `report/team/pilot_plan.yaml`; CP5: tính lại ba chỉ số E1.
+
+### Đóng góp cụ thể
+
+- Viết script riêng (không dùng `src/lab13.py`) đọc `logix_runs.csv` và `logix_requests.csv` để tính lại A2, A3, A4, B1–B4 rồi đối chiếu với `src/lab13.py` và bảng đáp án: lệch 0%.
+- Tính tay A1 (1,20 · 1,25 · 1,25) và A4 (4.599 đ, 0,38×; một nửa khối lượng 5.784 đ, 0,48×, simulated).
+- Tính lại D1 độc lập (1.251; 3.103 với DE 2,48; 859 với DE 6,96): khớp `pilot_plan.yaml`; kiểm file đọc được bằng `yaml.safe_load`, không còn dấu `?`, bốn luật dừng đủ bốn vế.
+- Tính lại E1 trên 1.200 yêu cầu: 82,83% · 27,12% · 4,25%.
+- Nêu các góp ý cho hồ sơ: ngưỡng chi phí 8.000 đ khá lỏng so với 3.414 đ, ngưỡng xem lại 5,1 phút lỏng hơn hoà vốn 4,8 phút, tên vai trò chưa đồng bộ giữa các file.
+
+### Bằng chứng
+
+- Nhánh `feat/ninh-kiem-so`; commit gần nhất `9247c66`.
+- File: `report/team/2A202603996_TrinhNgocNinh.md` (báo cáo cá nhân, có toàn bộ số đối chiếu).
