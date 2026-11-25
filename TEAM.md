@@ -37,7 +37,7 @@ Ví dụ: `report/team/20241234_NguyenVanAn.md`.
 
 Sao chép mục dưới đây cho từng thành viên.
 
-## HoangMinhQuyen-2A202603961
+## Hoàng Minh Quyền-2A202603961
 
 ### Phần việc phụ trách
 
