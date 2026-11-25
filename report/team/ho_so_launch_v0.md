@@ -11,18 +11,20 @@ Nhóm: Alpha · Lớp: L3B
 | 3 · So với nhân viên tự làm | CPS 4.472 đ so với 12.000 đ; chi phí cả hệ thống 5.865 đ/yêu cầu (0,49×). Với phạm vi nội địa và hàng nặng, CPS gồm chi phí cố định là 4.599 đ ở 45.000 yêu cầu/tháng và 5.784 đ ở 22.500 yêu cầu/tháng (simulated, A2–A4) | Giả lập | Người kiểm số |
 | 4 · Chỉ số chính, chỉ số dùng, chỉ số an toàn | Chính: 82,83% (994/1.200); dùng: 27,12% (48/177); an toàn: 4,25% (51/1.200). Chưa có nhóm đối chứng (E1) | Xong, có bằng chứng | Người giữ hồ sơ |
 | 5 · Bảng lỗi và cách khắc phục | Gắn nhãn độc lập 20 ca, đồng thuận 17/20 (85%); 3 ca bất đồng có quy tắc phân biệt; 5 phương án khắc phục đủ 5 loại lỗi (C) | Xong, có bằng chứng | Người gắn nhãn 1 |
-| 6 · Pilot plan | Nội địa và hàng nặng tại 12 depot; ngẫu nhiên theo nhân viên, 20 người/nhóm; 5.980 yêu cầu thực tế/nhóm, hiệu dụng 859; MDE 6 điểm, power 80%; 4 luật dừng hiện có. Quyết định 15/01/2027 | Chưa | Người gắn nhãn 1 |
+| 6 · Pilot plan | Nội địa và hàng nặng tại 12 depot; ngẫu nhiên theo nhân viên, 20 người/nhóm; 5.980 yêu cầu thực tế/nhóm, hiệu dụng 859; MDE 6 điểm, power 80%; rollout 4 → 10 → 20 người, 5 luật dừng, rollback 30 phút. Quyết định dự kiến 15/01/2027 | Chưa | Người gắn nhãn 1 |
 | 7 · Rủi ro kinh tế | Xem lại 100% khiến CPS đạt 11.743–12.415 đ, gần bằng hoặc vượt 12.000 đ tự làm. Ngưỡng hòa vốn xem lại 4,8–5,1 phút; tối đa 2 lần chạy cho chi phí cả hệ thống thấp nhất: 6.901.220 đ (simulated, B3–B4) | Giả lập | Người kiểm số |
 
 **Đề xuất**: Go có điều kiện.
 
 Giám đốc vận hành — 04/12/2026: chấp thuận đánh đổi MDE từ 5 lên 6 điểm; power chỉ khoảng 64% nếu tác động thật là 5 điểm.
 
-Pilot Lead — 04/12/2026: xác nhận phân nhóm ngẫu nhiên 20/20 nhân viên, phạm vi nội địa và hàng nặng, kế hoạch thu tối thiểu 299 yêu cầu/người.
+Pilot Lead — 04/12/2026: Chỉ áp dụng luật dừng chênh lệch mở lại từ 2 điểm phần trăm khi rollout đạt ít nhất 10 nhân viên; duy trì luật dừng an toàn ở mọi giai đoạn.
 
 Backend Engineer — 04/12/2026: kiểm chứng chống hoàn tiền trùng và khả năng rollback trong 30 phút.
 
 CSKH Lead — 14/12/2026: đánh giá thời gian xem lại so với ngưỡng hòa vốn 4,8–5,1 phút (simulated); không giảm kiểm soát khi chưa có bằng chứng an toàn.
+
+Product Manager — 04/12/2026: Tách chi phí cố định 40 triệu đồng/tháng khỏi ngưỡng dừng CPS 8.000 đ; theo dõi riêng hiệu quả kinh tế dài hạn.
 
 Pilot Lead — 15/01/2027: xác nhận đủ mẫu, đủ cửa sổ theo dõi 7 ngày và đánh giá kết quả so với nhóm đối chứng.
 

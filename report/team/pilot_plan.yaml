@@ -19,13 +19,13 @@
 #
 # Đánh đổi đã chấp nhận (nếu cách chia chưa đạt cả hai điều kiện):
 #   Với 40 nhân viên, không cách chia theo cụm nào đủ mẫu cho mức chênh 5 điểm (tối đa 1.000 < 1.251).
-#   Nhóm chọn chia theo nhân viên 20 + 20 và hạ mức chênh phát hiện được xuống 6 điểm (mde 0,06, cần m ≥ 299 yêu cầu mỗi người).
+#   Nhóm chọn chia theo nhân viên 20 + 20 và tăng mức chênh tối thiểu phát hiện được lên 6 điểm (mde 0,06, cần m ≥ 299 yêu cầu mỗi người).
 #   Con số bất lợi: nếu tác động thật chỉ là 5 điểm thì power chỉ còn 0,64 (NormalIndPower, n = 859). Giám đốc vận hành phải ký chấp nhận trước ngày bắt đầu.
 #   Thời gian đo: trong phạm vi noi_dia + hang_nang mỗi nhân viên nhận khoảng 30,7 yêu cầu/ngày (1.500 × 81,8% ÷ 40), nên cần khoảng 10 ngày làm việc để đạt 299 yêu cầu mỗi người.
 #
 # Tỉ lệ mo_lai_trong_7_ngay hiện tại và ngưỡng an toàn đã chọn:
 #   Hiện tại 4,25% (51/1.200) trên toàn mẫu, 3,97% (39/982) trong phạm vi noi_dia + hang_nang.
-#   Ngưỡng tuyệt đối 3% sẽ làm pilot dừng ngay tuần đầu, nên nhóm so với nhóm đối chứng (chênh từ 2 điểm trở lên, chỉ ở giai đoạn 10 và 20 nhân viên)
+#   Ngưỡng tuyệt đối 3% thấp hơn mức quan sát 3,97%, có nguy cơ làm pilot dừng ngay tuần đầu, nên nhóm so với nhóm đối chứng (chênh từ 2 điểm trở lên, chỉ ở giai đoạn 10 và 20 nhân viên)
 #   kèm trần tuyệt đối 6%, hoàn tiền trùng và thông báo hoàn tiền sai áp dụng ở mọi giai đoạn rollout.
 
 pilot:
@@ -35,32 +35,40 @@ pilot:
     unit: "staff"
     control_share: 0.5
     randomized: true
-  rollout: [0.10, 0.25, 0.50]     # 4 → 10 → 20 nhân viên dùng trợ lý, mỗi bước một tuần; chỉ đo chỉ số chính ở bước 0.50, kéo dài 2 tuần để đạt m ≥ 299
+  rollout: [0.10, 0.25, 0.50] # 4 → 10 → 20 nhân viên; mỗi bước tối thiểu một tuần, chỉ tăng khi đạt điều kiện an toàn.
+  # Chốt ngẫu nhiên 20 nhân viên thử nghiệm và 20 đối chứng trước khi chạy; 4 và 10 người là các tập con ngẫu nhiên của nhóm thử nghiệm.
+  # Giữ 20 đối chứng không dùng trợ lý xuyên suốt. Bước 0.50 thu đủ mẫu ở cả hai nhóm (dự kiến ít nhất 10 ngày làm việc).
   primary_metric:
     name: dong_trong_24h_khong_mo_lai_7_ngay
     baseline: 0.70
-    mde: 0.06                     # đánh đổi đã chấp nhận: 5 điểm không đủ mẫu với 40 nhân viên
+    mde: 0.06 # đánh đổi đề xuất: 5 điểm không đủ mẫu với 40 nhân viên; cần Giám đốc vận hành chấp thuận trước pilot
     alpha: 0.05
     power: 0.80
-    n_per_arm: 859
-    design_effect: 6.96
+    n_per_arm: 859 # cỡ mẫu hiệu dụng mục tiêu mỗi nhóm
+    design_effect: 6.96 # ICC = 0,02; m = 299 yêu cầu/người
     clusters_per_arm: 20
+    # Cỡ mẫu thực tế tối thiểu mỗi nhóm: 20 × 299 = 5.980 yêu cầu; tổng hai nhóm 11.960.
+    # Power 0,80 là xấp xỉ theo giả định ICC và kích thước cụm; kiểm tra lại nếu cụm mất người hoặc mẫu phân bổ không đều.
   identifiability:
     concurrent_control: "Có: 20 nhân viên đối chứng tự làm cùng tuần, cùng 12 depot, bốc thăm ngẫu nhiên bằng code với seed ghi trước, phân tầng theo depot"
     spillover_risk: "Trung bình: nhân viên cùng depot có thể chia sẻ câu trả lời của trợ lý; giảm bằng quyền truy cập trợ lý theo tài khoản, log staff_id ở mỗi lần chạy agent, và theo dõi số lần chạy agent gắn với staff_id của nhóm đối chứng (ngưỡng 0)"
-    predeclared: "Có: chỉ số chính, mde 0,06, alpha 0,05, tối thiểu 299 yêu cầu mỗi nhân viên, năm luật dừng và ngày quyết định 2027-01-15 chốt trong file này trước ngày bắt đầu 2026-12-07"
+    predeclared: "Có: chỉ số chính, mde 0,06, alpha 0,05, tối thiểu 299 yêu cầu mỗi nhân viên ở cả hai nhóm, năm luật dừng và ngày quyết định dự kiến 2027-01-15 được khai báo trước ngày bắt đầu 2026-12-07; Giám đốc vận hành phải chấp thuận đánh đổi MDE trước pilot. Phân tích chỉ số chính ở bước 0.50 theo nhóm được phân công ban đầu (intention-to-treat), có tính đến phân cụm theo nhân viên. Không gộp dữ liệu trước và sau thay đổi phạm vi hoặc quy tắc xử lý để kết luận cho cùng một phương án"
+  # KHÔNG THÌ là biện pháp cấm khi không thực hiện/hoàn tất hành động bắt buộc SAU KHI luật đã kích hoạt,
+  # không phải nhánh khi chỉ số chưa vượt ngưỡng. Nếu không có luật nào kích hoạt, chỉ tăng rollout khi đủ dữ liệu an toàn và được Giám đốc vận hành duyệt.
+  # Tỉ lệ mở lại: tính trên các yêu cầu cùng phạm vi, cùng giai đoạn đã đủ 7 ngày theo dõi, trong cửa sổ 7 ngày gần nhất của các cohort đủ theo dõi.
+  # Nếu chưa đủ dữ liệu để đánh giá an toàn, giữ nguyên rollout; không coi thiếu dữ liệu là đạt ngưỡng. Sự cố giao dịch nghiêm trọng vẫn giám sát ngay.
   stop_rules:
-    - "NẾU tỉ lệ mở lại trong 7 ngày của nhóm trợ lý vượt 6% (tính trên cửa sổ 7 ngày gần nhất), hoặc có từ 1 ca hoàn tiền trùng, hoặc có từ 1 thông báo hoàn tiền sai cho khách TRONG bất kỳ ngày theo dõi nào ở mọi giai đoạn rollout (4, 10 và 20 nhân viên), xem hằng ngày THÌ Giám đốc vận hành tắt trợ lý trong 30 phút và Backend Engineer rà toàn bộ trace của các ca đó trong 24 giờ KHÔNG THÌ cấm bật lại trợ lý và cấm chuyển bước rollout cho đến khi Backend Engineer rà xong và Giám đốc vận hành ký cho chạy lại"
-    - "NẾU tỉ lệ mở lại trong 7 ngày của nhóm trợ lý cao hơn nhóm đối chứng từ 2 điểm phần trăm trở lên, chỉ xét ở giai đoạn 10 và 20 nhân viên (bước 0.25 và 0.50; giai đoạn 4 nhân viên quá ít yêu cầu để so) TRONG 3 ngày liên tiếp THÌ Giám đốc vận hành tắt trợ lý trong 30 phút và Backend Engineer rà trace các ca mở lại trong 24 giờ KHÔNG THÌ cấm bật lại trợ lý và cấm chuyển sang bước rollout tiếp theo cho đến khi khoảng chênh về dưới 2 điểm"
-    - "NẾU chi phí biến đổi mỗi việc thành công của nhóm trợ lý (token, tool, giờ xem lại và làm lại; không gồm chi phí cố định 40 triệu đ/tháng) vượt 8.000 đ (0,67× của 12.000 đ, simulated) hoặc tỉ lệ làm lại vượt 7% (đợt chạy thử 4,9% trong phạm vi) TRONG 2 tuần liên tiếp THÌ Product Manager thu hẹp phạm vi về noi_dia và giới hạn tối đa 2 lần chạy mỗi yêu cầu KHÔNG THÌ cấm giữ hang_nang trong phạm vi pilot và cấm mở rộng số nhân viên dùng trợ lý"
-    - "NẾU tỉ lệ bỏ qua gợi ý (sua + bo trên số được xem lại) vượt 40% (đợt chạy thử 27,12%) TRONG 1 tuần THÌ CSKH Lead phỏng vấn 5 nhân viên nhóm trợ lý và rà 20 trace bị bỏ trong 3 ngày làm việc KHÔNG THÌ cấm chuyển sang bước rollout tiếp theo cho đến khi có kết quả phỏng vấn và rà trace"
-    - "NẾU thời gian xem lại trung bình mỗi yêu cầu vượt 5,1 phút (ngưỡng hoà vốn khi xem lại 100%; 4,8 phút nếu làm lại 15,3 phút như dữ liệu, simulated) TRONG 1 tuần THÌ CSKH Lead đổi sang xem lại theo mẫu rủi ro và báo Product Manager KHÔNG THÌ cấm mở rộng số nhân viên dùng trợ lý cho đến khi thời gian xem lại về dưới 5,1 phút"
-  interim_looks: "chỉ kiểm tra chỉ số an toàn hằng ngày: tỉ lệ mở lại trong 7 ngày, ca hoàn tiền trùng và thông báo hoàn tiền sai; chỉ số chính chỉ đọc một lần vào ngày quyết định, khi mỗi nhân viên nhóm trợ lý đã có ít nhất 299 yêu cầu và yêu cầu cuối cùng đã đủ 7 ngày theo dõi mở lại; chưa đủ thì kéo dài bước 0.50 và lùi ngày quyết định, không đọc sớm"
+    - "NẾU tỉ lệ mở lại trong 7 ngày của nhóm trợ lý vượt 6% trên cửa sổ cohort đủ theo dõi, hoặc xác nhận ít nhất 1 ca hoàn tiền trùng, hoặc 1 thông báo hoàn tiền sai cho khách (ví dụ báo đã hoàn nhưng sổ cái chưa xác nhận) TRONG bất kỳ ngày nào ở mọi giai đoạn rollout (4, 10, 20 nhân viên); theo dõi hằng ngày và cảnh báo sự cố giao dịch ngay khi phát hiện THÌ Giám đốc vận hành tắt trợ lý trong 30 phút kể từ khi xác nhận vi phạm, Backend Engineer rà trace trong 24 giờ, đối soát và xử lý giao dịch bị ảnh hưởng; chỉ chạy lại sau khi có bằng chứng khắc phục, kiểm thử an toàn và Giám đốc vận hành ký duyệt KHÔNG THÌ nếu chưa hoàn tất các biện pháp này sau khi kích hoạt luật, cấm bật lại và cấm tăng rollout"
+    - "NẾU tỉ lệ mở lại trong 7 ngày của nhóm trợ lý cao hơn nhóm đối chứng từ 2 điểm phần trăm trở lên, so cùng phạm vi và cửa sổ cohort đủ theo dõi, chỉ áp dụng từ giai đoạn 10 và 20 nhân viên TRONG 3 ngày liên tiếp THÌ Giám đốc vận hành tắt trợ lý trong 30 phút, Backend Engineer rà trace trong 24 giờ và xác minh nguyên nhân; chỉ thử lại ở phạm vi kiểm soát khi có bằng chứng khắc phục và Giám đốc vận hành phê duyệt KHÔNG THÌ nếu chưa hoàn tất các biện pháp này sau khi kích hoạt luật, cấm bật lại; cấm tăng rollout cho đến khi đợt thử lại có đủ dữ liệu an toàn và chênh lệch dưới 2 điểm"
+    - "NẾU chi phí biến đổi mỗi việc thành công (token, tool, giờ xem lại và làm lại thực đo; không gồm 40 triệu đ/tháng cố định) vượt 8.000 đ (ngưỡng đề xuất từ mô hình simulated) hoặc tỉ lệ làm lại vượt 7% (đợt chạy thử 4,9% trong phạm vi) TRONG 2 tuần liên tiếp THÌ Product Manager trong 1 ngày làm việc đề xuất thu hẹp về noi_dia và tối đa 2 lần chạy, Giám đốc vận hành duyệt trước khi áp dụng; ghi nhận thay đổi và chốt lại kế hoạch phân tích, cỡ mẫu và lịch nếu thay đổi phạm vi thử nghiệm KHÔNG THÌ nếu chưa thực hiện biện pháp đã duyệt sau khi kích hoạt luật, cấm mở rộng rollout và chuyển các ca không còn phù hợp cho nhân viên"
+    - "NẾU tỉ lệ bỏ qua gợi ý (sua + bo trên số được xem lại) vượt 40% (đợt chạy thử 27,12%) TRONG 1 tuần THÌ CSKH Lead phỏng vấn 5 nhân viên nhóm trợ lý (hoặc toàn bộ nếu ít hơn 5 người) và rà 20 trace bị bỏ (hoặc toàn bộ nếu ít hơn 20) trong 3 ngày làm việc, báo Product Manager để khắc phục KHÔNG THÌ nếu chưa hoàn tất phỏng vấn, rà trace và thống nhất biện pháp sau khi kích hoạt luật, cấm tăng rollout"
+    - "NẾU thời gian xem lại trung bình mỗi ca được xem lại vượt 5,1 phút (hoặc 4,8 phút nếu thời gian làm lại trung bình ở mức 15,3 phút/ca; ngưỡng hoà vốn simulated trong kịch bản xem lại 100%) TRONG 1 tuần THÌ CSKH Lead trong 3 ngày làm việc phân tích nguyên nhân và báo Product Manager, ưu tiên rút ngắn thao tác xem lại; chỉ được chuyển sang xem lại theo mẫu rủi ro khi có bằng chứng an toàn, kiểm thử và Giám đốc vận hành phê duyệt; nếu không thể giảm chi phí an toàn thì giữ kiểm soát và đánh giá lại phạm vi hoặc tạm dừng KHÔNG THÌ nếu chưa có biện pháp được duyệt hoặc chưa đạt điều kiện an toàn sau khi kích hoạt luật, cấm giảm mức kiểm soát và cấm tăng rollout"
+  interim_looks: "Không đọc chỉ số chính giữa kỳ. Kiểm tra an toàn hằng ngày (tỉ lệ mở lại trên cohort đủ theo dõi, hoàn tiền trùng, thông báo hoàn tiền sai); theo dõi riêng CPS biến đổi, CPS gồm chi phí cố định, tỉ lệ làm lại, bỏ qua gợi ý và thời gian xem lại theo các cửa sổ tuần của luật dừng. Chỉ đọc chỉ số chính một lần ở ngày quyết định, khi cả 20 nhân viên thử nghiệm và 20 đối chứng đều có ít nhất 299 yêu cầu đủ điều kiện trong bước 0.50, yêu cầu cuối cùng của cả hai nhóm đã đủ 7 ngày theo dõi mở lại và dữ liệu đã được kiểm tra. Nếu chưa đủ mẫu hoặc thời gian theo dõi, kéo dài bước 0.50 và lùi ngày quyết định trước khi đọc chỉ số chính. Không mở rộng nếu có luật dừng đang kích hoạt hoặc chưa đủ bằng chứng an toàn"
   rollback: "Giám đốc vận hành bấm cờ tắt trợ lý, hiệu lực trong 30 phút; mọi yêu cầu mới quay về luồng nhân viên tự làm (6 phút, 12.000 đ mỗi yêu cầu), yêu cầu đang chạy dở được chuyển nhân viên kèm tóm tắt"
-  decision_date: "2027-01-15"     # bước 0.50 đo 2026-12-21 → 2027-01-08 (đủ ≥ 299 yêu cầu mỗi người), cộng đủ 7 ngày theo dõi mở lại
+  decision_date: "2027-01-15" # bước 0.50 đo 2026-12-21 → 2027-01-08 (đủ ≥ 299 yêu cầu mỗi người), cộng đủ 7 ngày theo dõi mở lại
   simulated_inputs:
     - "phut_xem_lai_simulated và phut_lam_lai_simulated (cột giả lập trong logix_requests.csv)"
     - "chi phí mỗi việc thành công 4.472 đ toàn mẫu; noi_dia 2.696 đ (0,22×), hang_nang 8.221 đ (0,69×), quoc_te 22.515 đ (1,88×), doi_tac 10.215 đ (0,85×)"
     - "chi phí mỗi việc thành công cộng cố định 4.599 đ (0,38×) ở 45.000 yêu cầu/tháng và 5.784 đ (0,48×) ở một nửa khối lượng"
-    - "ngưỡng chi phí 8.000 đ trong luật dừng chi phí (chỉ chi phí biến đổi, không gồm 40 triệu đ/tháng cố định)"
+    - "ngưỡng chi phí 8.000 đ trong luật dừng chi phí (chỉ chi phí biến đổi, không gồm 40 triệu đ/tháng cố định); CPS gồm chi phí cố định dùng riêng để đánh giá kinh tế dài hạn"
     - "xem lại 100%: 11.743 đ (0,98×) với 9 phút làm lại, 12.415 đ (1,03×) với 15,3 phút làm lại; ngưỡng hoà vốn 5,1 và 4,8 phút"

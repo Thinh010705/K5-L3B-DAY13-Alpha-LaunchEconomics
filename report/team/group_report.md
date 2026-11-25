@@ -45,6 +45,7 @@ Nhóm tiếp cận theo năm nhiệm vụ: mô hình chi phí, phân tích độ
 - Ba ca gắn nhãn bất đồng: đối chiếu định nghĩa, phân tích nguyên nhân gốc và ghi quy tắc phân biệt.
 - Thiếu cỡ mẫu khi chia theo nhân viên ở MDE 5 điểm: đề xuất MDE 6 điểm, đồng thời công khai power chỉ khoảng 64% nếu tác động thực tế là 5 điểm.
 - Nguy cơ mất lợi thế kinh tế khi xem lại 100%: đưa thời gian xem lại và chi phí vào nội dung cần kiểm chứng trong pilot.
+- Tiếp thu hướng dẫn của Lab Coach: áp dụng luật dừng chênh lệch mở lại 2 điểm từ giai đoạn 10 nhân viên; duy trì kiểm soát an toàn ở mọi giai đoạn và loại chi phí cố định khỏi ngưỡng dừng CPS 8.000 đ.
 
 ## 6. Tổng hợp đóng góp
 
