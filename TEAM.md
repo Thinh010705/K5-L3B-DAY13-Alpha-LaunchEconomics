@@ -110,7 +110,7 @@ Sao chép mục dưới đây cho từng thành viên.
   - B1–B4: yếu tố nhạy nhất là làm lại (`+51,8%` khi gấp đôi); giới hạn 2 lần cho chi phí cả hệ thống thấp nhất (`6.901.220 đ`, `simulated`); xem lại 100% ở `15,3 phút/ca` là `12.415 đ` (`1,03x`, `simulated`).
   - D1 & E1: `1.251 yc/nhóm` theo yêu cầu; `m >= 299` ở mức chênh 6 điểm với 20 nhân viên/nhóm (`DE = 6,96`); chỉ số chính chạy thử `82,83%`, bỏ qua gợi ý `27,12%`, mở lại 7 ngày `4,25%` (`3,97%` trong phạm vi).
 
-## TrinhNgocNinh-2A202603996
+## Trịnh Ngọc Ninh-2A202603996
 
 ### Phần việc phụ trách
 
