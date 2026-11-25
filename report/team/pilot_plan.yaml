@@ -25,7 +25,8 @@
 #
 # Tỉ lệ mo_lai_trong_7_ngay hiện tại và ngưỡng an toàn đã chọn:
 #   Hiện tại 4,25% (51/1.200) trên toàn mẫu, 3,97% (39/982) trong phạm vi noi_dia + hang_nang.
-#   Ngưỡng tuyệt đối 3% sẽ làm pilot dừng ngay tuần đầu, nên nhóm so với nhóm đối chứng (chênh từ 2 điểm trở lên) kèm trần tuyệt đối 6%.
+#   Ngưỡng tuyệt đối 3% sẽ làm pilot dừng ngay tuần đầu, nên nhóm so với nhóm đối chứng (chênh từ 2 điểm trở lên, chỉ ở giai đoạn 10 và 20 nhân viên)
+#   kèm trần tuyệt đối 6%, hoàn tiền trùng và thông báo hoàn tiền sai áp dụng ở mọi giai đoạn rollout.
 
 pilot:
   owner: "Giám đốc vận hành LogiX-VN"
@@ -47,18 +48,19 @@ pilot:
   identifiability:
     concurrent_control: "Có: 20 nhân viên đối chứng tự làm cùng tuần, cùng 12 depot, bốc thăm ngẫu nhiên bằng code với seed ghi trước, phân tầng theo depot"
     spillover_risk: "Trung bình: nhân viên cùng depot có thể chia sẻ câu trả lời của trợ lý; giảm bằng quyền truy cập trợ lý theo tài khoản, log staff_id ở mỗi lần chạy agent, và theo dõi số lần chạy agent gắn với staff_id của nhóm đối chứng (ngưỡng 0)"
-    predeclared: "Có: chỉ số chính, mde 0,06, alpha 0,05, bốn luật dừng và ngày quyết định 2027-01-15 chốt trong file này trước ngày bắt đầu 2026-12-07"
+    predeclared: "Có: chỉ số chính, mde 0,06, alpha 0,05, tối thiểu 299 yêu cầu mỗi nhân viên, năm luật dừng và ngày quyết định 2027-01-15 chốt trong file này trước ngày bắt đầu 2026-12-07"
   stop_rules:
-    - "NẾU tỉ lệ mở lại trong 7 ngày của nhóm trợ lý cao hơn nhóm đối chứng từ 2 điểm trở lên hoặc vượt 6%, hoặc có từ 1 ca hoàn tiền trùng trở lên TRONG 3 ngày liên tiếp theo dõi hằng ngày THÌ Giám đốc vận hành tắt trợ lý trong 30 phút và Backend Engineer rà toàn bộ trace của các ca đó trong 24 giờ KHÔNG THÌ không được chuyển sang bước rollout tiếp theo"
-    - "NẾU chi phí mỗi việc thành công của nhóm trợ lý vượt 8.000 đ (0,67× của 12.000 đ, simulated) hoặc tỉ lệ làm lại vượt 7% (đợt chạy thử 4,9% trong phạm vi) TRONG 2 tuần liên tiếp THÌ Product Manager thu hẹp phạm vi về noi_dia và giới hạn tối đa 2 lần chạy KHÔNG THÌ không được giữ hang_nang trong phạm vi pilot"
-    - "NẾU tỉ lệ bỏ qua gợi ý (sua + bo trên số được xem lại) vượt 40% (đợt chạy thử 27,12%) TRONG 1 tuần THÌ CSKH Lead phỏng vấn 5 nhân viên nhóm trợ lý và rà 20 trace bị bỏ trong 3 ngày làm việc KHÔNG THÌ không được chuyển sang bước rollout tiếp theo"
-    - "NẾU thời gian xem lại trung bình mỗi yêu cầu vượt 5,1 phút (ngưỡng hoà vốn khi xem lại 100%; 4,8 phút nếu làm lại 15,3 phút như dữ liệu, simulated) TRONG 1 tuần THÌ CSKH Lead đổi sang xem lại theo mẫu rủi ro và báo Product Manager KHÔNG THÌ không được mở rộng số nhân viên dùng trợ lý"
-  interim_looks: "chỉ kiểm tra chỉ số an toàn: tỉ lệ mở lại trong 7 ngày và tỉ lệ hoàn tiền trùng xem hằng ngày; chỉ số chính chỉ đọc một lần vào ngày quyết định, không đọc giữa chừng"
+    - "NẾU tỉ lệ mở lại trong 7 ngày của nhóm trợ lý vượt 6% (tính trên cửa sổ 7 ngày gần nhất), hoặc có từ 1 ca hoàn tiền trùng, hoặc có từ 1 thông báo hoàn tiền sai cho khách TRONG bất kỳ ngày theo dõi nào ở mọi giai đoạn rollout (4, 10 và 20 nhân viên), xem hằng ngày THÌ Giám đốc vận hành tắt trợ lý trong 30 phút và Backend Engineer rà toàn bộ trace của các ca đó trong 24 giờ KHÔNG THÌ cấm bật lại trợ lý và cấm chuyển bước rollout cho đến khi Backend Engineer rà xong và Giám đốc vận hành ký cho chạy lại"
+    - "NẾU tỉ lệ mở lại trong 7 ngày của nhóm trợ lý cao hơn nhóm đối chứng từ 2 điểm phần trăm trở lên, chỉ xét ở giai đoạn 10 và 20 nhân viên (bước 0.25 và 0.50; giai đoạn 4 nhân viên quá ít yêu cầu để so) TRONG 3 ngày liên tiếp THÌ Giám đốc vận hành tắt trợ lý trong 30 phút và Backend Engineer rà trace các ca mở lại trong 24 giờ KHÔNG THÌ cấm bật lại trợ lý và cấm chuyển sang bước rollout tiếp theo cho đến khi khoảng chênh về dưới 2 điểm"
+    - "NẾU chi phí biến đổi mỗi việc thành công của nhóm trợ lý (token, tool, giờ xem lại và làm lại; không gồm chi phí cố định 40 triệu đ/tháng) vượt 8.000 đ (0,67× của 12.000 đ, simulated) hoặc tỉ lệ làm lại vượt 7% (đợt chạy thử 4,9% trong phạm vi) TRONG 2 tuần liên tiếp THÌ Product Manager thu hẹp phạm vi về noi_dia và giới hạn tối đa 2 lần chạy mỗi yêu cầu KHÔNG THÌ cấm giữ hang_nang trong phạm vi pilot và cấm mở rộng số nhân viên dùng trợ lý"
+    - "NẾU tỉ lệ bỏ qua gợi ý (sua + bo trên số được xem lại) vượt 40% (đợt chạy thử 27,12%) TRONG 1 tuần THÌ CSKH Lead phỏng vấn 5 nhân viên nhóm trợ lý và rà 20 trace bị bỏ trong 3 ngày làm việc KHÔNG THÌ cấm chuyển sang bước rollout tiếp theo cho đến khi có kết quả phỏng vấn và rà trace"
+    - "NẾU thời gian xem lại trung bình mỗi yêu cầu vượt 5,1 phút (ngưỡng hoà vốn khi xem lại 100%; 4,8 phút nếu làm lại 15,3 phút như dữ liệu, simulated) TRONG 1 tuần THÌ CSKH Lead đổi sang xem lại theo mẫu rủi ro và báo Product Manager KHÔNG THÌ cấm mở rộng số nhân viên dùng trợ lý cho đến khi thời gian xem lại về dưới 5,1 phút"
+  interim_looks: "chỉ kiểm tra chỉ số an toàn hằng ngày: tỉ lệ mở lại trong 7 ngày, ca hoàn tiền trùng và thông báo hoàn tiền sai; chỉ số chính chỉ đọc một lần vào ngày quyết định, khi mỗi nhân viên nhóm trợ lý đã có ít nhất 299 yêu cầu và yêu cầu cuối cùng đã đủ 7 ngày theo dõi mở lại; chưa đủ thì kéo dài bước 0.50 và lùi ngày quyết định, không đọc sớm"
   rollback: "Giám đốc vận hành bấm cờ tắt trợ lý, hiệu lực trong 30 phút; mọi yêu cầu mới quay về luồng nhân viên tự làm (6 phút, 12.000 đ mỗi yêu cầu), yêu cầu đang chạy dở được chuyển nhân viên kèm tóm tắt"
-  decision_date: "2027-01-15"     # bước 0.50 đo 2026-12-21 → 2027-01-08, cộng 7 ngày theo dõi mở lại
+  decision_date: "2027-01-15"     # bước 0.50 đo 2026-12-21 → 2027-01-08 (đủ ≥ 299 yêu cầu mỗi người), cộng đủ 7 ngày theo dõi mở lại
   simulated_inputs:
     - "phut_xem_lai_simulated và phut_lam_lai_simulated (cột giả lập trong logix_requests.csv)"
     - "chi phí mỗi việc thành công 4.472 đ toàn mẫu; noi_dia 2.696 đ (0,22×), hang_nang 8.221 đ (0,69×), quoc_te 22.515 đ (1,88×), doi_tac 10.215 đ (0,85×)"
     - "chi phí mỗi việc thành công cộng cố định 4.599 đ (0,38×) ở 45.000 yêu cầu/tháng và 5.784 đ (0,48×) ở một nửa khối lượng"
-    - "ngưỡng chi phí 8.000 đ trong luật dừng chi phí"
+    - "ngưỡng chi phí 8.000 đ trong luật dừng chi phí (chỉ chi phí biến đổi, không gồm 40 triệu đ/tháng cố định)"
     - "xem lại 100%: 11.743 đ (0,98×) với 9 phút làm lại, 12.415 đ (1,03×) với 15,3 phút làm lại; ngưỡng hoà vốn 5,1 và 4,8 phút"

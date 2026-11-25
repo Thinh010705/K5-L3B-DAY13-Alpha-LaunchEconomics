@@ -25,14 +25,14 @@
   - Chọn chia theo nhân viên 20 + 20, ngẫu nhiên, phân tầng theo depot; trả lời năm câu D2.
   - Ghi rõ đánh đổi: hạ mde xuống 6 điểm, power chỉ còn `0,64` nếu tác động thật là 5 điểm (tính lại bằng statsmodels `NormalIndPower`).
   - Tính tỉ lệ mở lại 7 ngày hiện tại (`4,25%`, `3,97%` trong phạm vi) trước khi đặt ngưỡng an toàn: so với đối chứng chênh ≥ 2 điểm kèm trần 6%, tránh dừng ngay tuần đầu.
-  - Bốn luật dừng NẾU – TRONG – THÌ – KHÔNG THÌ (an toàn, chi phí, mức độ sử dụng, thời gian xem lại) với ngưỡng, thời hạn, người có quyền dừng.
+  - Năm luật dừng NẾU – TRONG – THÌ – KHÔNG THÌ (an toàn tuyệt đối ở mọi giai đoạn, so với đối chứng ở giai đoạn 10 và 20 nhân viên, chi phí biến đổi không gồm 40 triệu cố định, mức độ sử dụng, thời gian xem lại) với ngưỡng, thời hạn, người có quyền dừng; vế KHÔNG THÌ ghi rõ việc bị cấm và cấm đến khi nào.
   - Tính thời gian đo: khoảng `30,7` yêu cầu/nhân viên/ngày trong phạm vi, nên cần khoảng 10 ngày làm việc để đạt `m ≥ 299`; ngày quyết định 2027-01-15.
 
 ## 4. Bằng chứng
 
 - Nhánh làm việc: `quyen_gannhan1` (tạo từ `feat/quang011105-lab13-code`).
 - File: `report/team/bang_loi.md` (cột "Nhãn người 1"); commit `6d734d5`, tạo trước khi so nhãn với Người gắn nhãn 2.
-- File: `report/team/pilot_plan.yaml`; đọc được bằng `yaml.safe_load`, đủ 11 trường, không còn dấu `?` ngoài dòng chú thích, bốn luật dừng đủ bốn vế.
+- File: `report/team/pilot_plan.yaml`; đọc được bằng `yaml.safe_load`, đủ 11 trường, không còn dấu `?` ngoài dòng chú thích, năm luật dừng đủ bốn vế.
 - Output chạy lại `python lab13.py` trên máy cá nhân trùng với `src/lab13_output.txt`.
 
 ## 5. Công cụ AI đã dùng
