@@ -12,7 +12,7 @@
 | STT | Họ tên | MSSV | Email | GitHub | Vai trò |
 | --: | ------ | ---- | ----- | ------ | ------- |
 |   1 | Cao Minh Quang | 2A202603906 | cquang2k5@gmail.com | quang011105 | Người viết code |
-|   2 |        |      |       |        |         |
+|   2 | Trịnh Ngọc Ninh | 2A202603996 | ninh.trinh.dev@gmail.com | ninhtrinhdev | Người kiểm số |
 |   3 | Hoàng Minh Quyền | 2A202603961 | quyentryhard@gmail.com |        | Người gắn nhãn 1 |
 |   4 |        |      |       |        |         |
 
