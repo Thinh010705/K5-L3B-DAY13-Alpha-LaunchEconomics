@@ -1,0 +1,70 @@
+﻿Ba phép thử đáp án biết trước: ĐẠT
+
+=== A2 · MÔ HÌNH CHI PHÍ TỪ TRACE ===
+token                  245,585
+tool                    84,000
+chay_lai                93,804
+xem_lai              1,780,000
+lam_lai              2,264,000
+tong                 4,373,585
+thanh_cong                 978
+cps                      4,472
+hoa_don_moi_yc           274.7
+Gấp hoá đơn/yc : 16.3x
+Tỉ trọng xem lại [sim]: 40.7%
+Tỉ trọng làm lại [sim]: 51.8%
+Chi phí cả hệ thống/yc [sim]: 5,865 đ (0.49x)
+
+=== A3 · TÁCH THEO LOẠI YÊU CẦU ===
+noi_dia    | n=824 | tc= 95.0% | chạy/yc=1.11 | cps=  2,696 đ (0.22x) [sim]
+hang_nang  | n=158 | tc= 74.1% | chạy/yc=1.47 | cps=  8,221 đ (0.69x) [sim]
+quoc_te    | n=150 | tc= 27.3% | chạy/yc=2.32 | cps= 22,515 đ (1.88x) [sim]
+doi_tac    | n= 68 | tc= 54.4% | chạy/yc=1.88 | cps= 10,215 đ (0.85x) [sim]
+
+Tỉ lệ ok theo lần thử (attempt) và loại:
+attempt       1     2     3
+loai                       
+doi_tac    51.5  18.2  14.8
+hang_nang  70.9  39.1  17.9
+noi_dia    91.0  75.7  38.9
+quoc_te    30.0  11.4   2.2
+
+=== A4 · CHI PHÍ CỐ ĐỊNH (noi_dia + hang_nang) ===
+45.000 yc/tháng    | tc/tháng= 33,750 | cố định=1,185 đ | cps+cố định= 4,599 đ (0.38x) [sim]
+Một nửa (22.500)   | tc/tháng= 16,875 | cố định=2,370 đ | cps+cố định= 5,784 đ (0.48x) [sim]
+
+=== B1 · BẢNG ĐỘ NHẠY ===
+Giá token gấp đôi            4,723 đ   +5.6%
+Giá token giảm một nửa       4,346 đ   -2.8%
+Xem lại gấp đôi              6,292 đ  +40.7%
+Xem lại giảm một nửa         3,562 đ  -20.3%
+Làm lại gấp đôi              6,787 đ  +51.8%
+Làm lại giảm một nửa         3,315 đ  -25.9%
+Lương tăng 25%               5,506 đ  +23.1%
+Tối đa 2 lần chạy            4,237 đ   -5.2%
+Chỉ 1 lần chạy               4,111 đ   -8.1%
+
+=== B2 · ĐỔI MỘT CẶP ===
+Token x2 + Xem lại x2        6,543 đ  +46.3%
+
+=== B3 · GIỚI HẠN CHẠY LẠI & CHI PHÍ CẢ HỆ THỐNG ===
+Tối đa 1 lần | trợ lý=3,621,781 đ | không tc=319 | cả hệ thống=7,449,781 đ | cps= 4,111 đ [sim]
+Tối đa 2 lần | trợ lý=4,093,220 đ | không tc=234 | cả hệ thống=6,901,220 đ | cps= 4,237 đ [sim]
+Tối đa 3 lần | trợ lý=4,373,585 đ | không tc=222 | cả hệ thống=7,037,585 đ | cps= 4,472 đ [sim]
+
+=== B4 · XEM LẠI 100% (noi_dia + hang_nang) ===
+9 phút/ca (đề)               | tong=10,568,513 đ | cps= 11,743 đ (0.98x) | hoà vốn xem lại <= 5.1 phút [sim]
+15.3 phút/ca (thực tế sim)   | tong=11,173,054 đ | cps= 12,415 đ (1.03x) | hoà vốn xem lại <= 4.8 phút [sim]
+
+=== D1 · CỠ MẪU PILOT (baseline=0.70, alpha=0.05, power=0.80, ICC=0.02) ===
+a) Theo yêu cầu (+5đ)          : 1,251 yc/nhóm
+b) Theo nhân viên (m=75)       : DE=2.48, 3,103 yc/nhóm -> 42 người/nhóm (tổng 84 > 40)
+c) 20 nhân viên/nhóm (tối đa)  : n_hiệu_dụng < 1,000 (< 1,251 -> không đạt)
+d) 6 depot/nhóm (tối đa)       : n_hiệu_dụng < 300
+e) Mức chênh 6đ (859/nhóm), 20 nv: m >= 299 yc/người (DE=6.96); power nếu thật chỉ +5đ = 0.64
+
+=== D3 & E1 · CHỈ SỐ ĐỢT CHẠY THỬ (1.200 yêu cầu) ===
+Chính (đóng 24h & không mở lại 7 ngày): 82.83% (994/1200)
+Dùng (tỉ lệ sửa + bỏ khi xem lại)     : 27.12% (48/177)
+An toàn (mở lại 7 ngày - toàn mẫu)    : 4.25% (51/1200)
+An toàn (mở lại 7 ngày - phạm vi)     : 3.97% (39/982)
