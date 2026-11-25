@@ -11,6 +11,7 @@
 
 - CP1: kiểm độc lập các con số của nhiệm vụ A (A1–A4) do người viết code tính ra, trước khi nhóm chép vào `report/team/bang_chi_phi.md`.
 - CP2: kiểm độc lập bảng độ nhạy B1–B4.
+- CP4: kiểm D1 và các trường của `pilot_plan.yaml` (bản trên nhánh `quyen_gannhan1`, commit `3dd2408`).
 - Tính tay A1 và A4 để đối chiếu với `src/lab13.py`.
 
 ## 3. Đóng góp cụ thể
@@ -21,6 +22,7 @@
 - Tính tay A4: 45.000 × 900 ÷ 1.200 = 33.750 việc/tháng; 40.000.000 ÷ 33.750 = 1.185 đ/việc; 3.414 + 1.185 = 4.599 đ = 0,38× so với 12.000 đ (simulated). Một nửa khối lượng: 40.000.000 ÷ 16.875 = 2.370 đ/việc; 3.414 + 2.370 = 5.784 đ = 0,48× (simulated).
 - CP2: viết script độc lập tính lại B1 (9 kịch bản), B2, B3 và B4 từ hai file CSV; so với `src/lab13.py` và `report/team/bang_chi_phi.md`.
 - Kiểm tự kiểm tra của B1: mỗi kịch bản "giảm một nửa" bằng nửa mức tăng của "gấp đôi" (5,6 → 2,8; 40,7 → 20,3; 51,8 → 25,9).
+- CP4: tính lại D1 độc lập (hàm `co_mau` với z chính xác) và soạn checklist đối chiếu D1; chạy `yaml.safe_load`, kiểm không còn dấu `?` ngoài dòng chú thích, không có từ "production", cả 4 luật dừng đủ bốn vế NẾU – TRONG – THÌ – KHÔNG THÌ.
 
 ## 4. Bằng chứng
 
@@ -34,6 +36,8 @@
   - B2: 6.543 đ (+46,3%), bằng tổng hai tác động riêng; xếp hạng: làm lại, xem lại, lương.
   - B3: cả hệ thống 7.449.781 đ (1 lần), 6.901.220 đ (2 lần, rẻ nhất), 7.037.585 đ (3 lần).
   - B4: 9 phút/ca là 11.743 đ (0,98×); 15,3 phút/ca là 12.415 đ (1,03×). Lưu ý: 15,3 phút là trung bình của cả 74 ca `lam_lai` (mọi loại); riêng 48 ca trong phạm vi `noi_dia` + `hang_nang` là 16,25 phút, ra 12.516 đ (1,04×). Kết luận không đổi: xem lại 100% đắt hơn nhân viên tự làm.
+- CP4, D1 (độc lập = bản `quyen_gannhan1`, lệch 0%): a) 1.251 mỗi nhóm; b) DE 2,48, 3.103 mỗi nhóm, 84 người > 40; c) tối đa 1.000 < 1.251; d) tối đa 300; e) 859 mỗi nhóm, m ≥ 299, DE 6,96. Power ở mức chênh 5 điểm với n = 859 là 0,6417 (statsmodels), khớp ghi chú 0,64. Các trường `mde 0.06`, `n_per_arm 859`, `design_effect 6.96`, `clusters_per_arm 20` đúng.
+  - Góp ý đã nêu: ngưỡng chi phí 8.000 đ khá lỏng so với 3.414 đ của phạm vi (simulated); ngưỡng xem lại 5,1 phút lỏng hơn hoà vốn 4,8 phút; pilot cũ ở 6 depot nhưng kế hoạch trải 12 depot; tên vai trò chưa đồng bộ giữa các file; phân tầng theo depot còn lẻ vì chỉ khoảng 3 người mỗi depot.
 - Ghi chú kỹ thuật: trên Windows, `python lab13.py` có thể báo `UnicodeEncodeError` khi in tiếng Việt; chạy với `PYTHONIOENCODING=utf-8` thì in đúng.
 
 ## 5. Công cụ AI đã dùng
@@ -43,4 +47,4 @@
 
 ## 6. Tự đánh giá
 
-- Đã đối chiếu xong A1–A4 và B1–B4; mọi số lệch 0% so với đáp án (ngưỡng nhận là 2%). Chưa kiểm phần D1 và E1.
+- Đã đối chiếu xong A1–A4, B1–B4 và D1; mọi số lệch 0% so với đáp án (ngưỡng nhận là 2%). Số chỉ số E1 (82,83%, 27,12%, 4,25%) đã tính lại khớp; chưa kiểm sự phù hợp của toàn bộ `chi_so.md` và hồ sơ launch v0 sau khi nhóm hoàn thiện.
